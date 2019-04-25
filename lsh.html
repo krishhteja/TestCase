@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+        function computeData(){
+            var readval = $("#readval").val(); // Read from textbox
+            var arr = readval.split(''); //Create array using the values
+            var output = '';
+            var count = 0; //variable to decide capital or small letter
+            for(var eachLetter = 0; eachLetter < readval.length; eachLetter++){
+                var current = arr[eachLetter];
+                if(/^[a-zA-Z()]+$/.test(current)){ //Letter check
+                    if(count % 2 == 0)
+                        output += current.toUpperCase();
+                    else
+                        output += current.toLowerCase();
+                    count++;
+                }else if(/^[0-9()]+$/.test(current)){ // Number Check
+                    if(current % 2 == 0){
+                        if(count % 2 == 0)
+                            output += "E"
+                        else
+                            output += "e"
+                    }else{
+                        if(count % 2 == 0)
+                            output += "O"
+                        else
+                            output += "o"
+                    }
+                    count++;
+                }else if(/\s/g.test(current)){ // Space check
+                    output += " ";   
+                }else{ //All other characters
+                    output += current;
+                    count++;
+                }
+            }
+            $("#results").val(output);
+        }; 
+    </script>
+</head>
+<body>
+    <form id = "lshTest" name = "lshTest">
+        <div class = "container-fluid" style = "margin: 30px;">
+            <div class = "col-md-5">
+                <input type = "text" id = "readval" name = "readval" placeholder = "Enter string" class = "form-control" required>
+            </div>
+            <div class = "col-md-2">&nbsp;</div>
+            <div class = "col-md-5">
+                <input type = "text" id = "results" name = "results" placeholder = "results" class = "form-control">
+            </div>
+        </div>
+        <div class = "container-fluid" style = "padding:15px">
+            <div class = "col-md-4">&nbsp;</div>
+            <div class = "col-md-4">
+                <input type = "button" id = "compute" name = "compute" onclick = "computeData()" value = "Show Result" class = "btn btn-primary">
+            </div>
+            <div class = "col-md-4">&nbsp;</div>
+        </div>
+    </form>
+</body>
+</html>
+
